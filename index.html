@@ -1,14 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz App</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Pulse</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="quiz-container">
+      <div class="quiz-header">
+        <h1>Quiz Pulse</h1>
+        <div id="progress-text" class="hidden">Question 1 of 5</div>
+      </div>
+      <!-- Start Screen -->
+      <div id="start-screen" class="screen">
+        <h2>Test Your Knowledge!</h2>
+        <p>Answer the questions to see your knowledge.</p>
+        <button id="start-btn" class="btn primary-btn">Start Quiz</button>
+      </div>
+      <!-- Questions Screen -->
+      <div id="question-screen" class="screen hidden">
+        <h2 id="question-text">Question Text goes here....</h2>
+        <div id="option-container" class="option-grid">
+            <!-- Dynamic choice will be rendered by JS -->
+        </div>
+          <button id="next-btn" class="btn primary-btn hidden">
+              Next Question
+            </button>
+    </div>
+    </div>
+    <!-- Result Screen -->
+    <div id="result-screen" class="screen hidden">
+      <h2>Quiz Completed!</h2>
+      <p id="final-score">You Score 0 out of 5</p>
+      <button id="restart-btn" class="btn primary-btn">Try Again</button>
 
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
