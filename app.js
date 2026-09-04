@@ -35,4 +35,38 @@ function startQuiz() {
   score = 0;
   startScreen.classList.add("hidden");
   questionScreen.classList.remove("hidden");
+  showQuestion();
+}
+
+startBtn.addEventListener("click", startQuiz);
+
+function showQuestion() {
+  const currentQuestion = questions[currentQuestionIndex];
+  questionText.innerText = currentQuestion.question;
+  optionContainer.innerHTML = "";
+
+  currentQuestion.options.forEach((option, index) => {
+    const button = document.createElement("button");
+    button.innerText = option;
+    button.classList.add("option-btn");
+
+    button.addEventListener("click", () => selectAnswer(index));
+
+    optionContainer.appendChild(button);
+  });
+}
+
+function selectAnswer(selectedIndex) {
+  const currentQuestion = questions[currentQuestionIndex];
+
+  if (selectedIndex === currentQuestion.answer) {
+    score++;
+  }
+
+  const allButtons = optionContainer.querySelectorAll("button");
+  allButtons.forEach((button, index) => {
+    button.disabled = true;
+  });
+
+  nextBtn.classList.remove("hidden");
 }
