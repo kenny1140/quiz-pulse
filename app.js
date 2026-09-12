@@ -34,7 +34,9 @@ function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
   startScreen.classList.add("hidden");
+  resultScreen.classList.add("hidden");
   questionScreen.classList.remove("hidden");
+  progressText.classList.remove("hidden");
   showQuestion();
 }
 
@@ -42,8 +44,12 @@ startBtn.addEventListener("click", startQuiz);
 
 function showQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
+
+  progressText.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
   questionText.innerText = currentQuestion.question;
   optionContainer.innerHTML = "";
+
+  nextBtn.classList.add("hidden");
 
   currentQuestion.options.forEach((option, index) => {
     const button = document.createElement("button");
@@ -70,3 +76,22 @@ function selectAnswer(selectedIndex) {
 
   nextBtn.classList.remove("hidden");
 }
+
+function handleNextQuestion() {
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    showQuestion();
+  } else {
+    showScore();
+  }
+}
+
+function showScore() {
+  questionScreen.classList.add("hidden");
+  resultScreen.classList.remove("hidden");
+  finalScore.innerText = `Your score: ${score} out of ${questions.length}`;
+}
+
+startBtn.addEventListener("click", startQuiz);
+nextBtn.addEventListener("click", handleNextQuestion);
+restartBtn.addEventListener("click", startQuiz);
