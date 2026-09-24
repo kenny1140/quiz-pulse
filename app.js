@@ -10,6 +10,8 @@ const restartBtn = document.getElementById("restart-btn");
 const questionText = document.getElementById("question-text");
 const optionContainer = document.getElementById("option-container");
 const progressText = document.getElementById("progress-text");
+const progressBar = document.getElementById("progress-bar");
+const progressContainer = document.getElementById("progress-container");
 const finalScore = document.getElementById("final-score");
 
 const questions = [
@@ -33,6 +35,12 @@ const questions = [
 function startQuiz() {
   currentQuestionIndex = 0;
   score = 0;
+
+  if (progressBar) {
+    progressBar.style.width = "0%";
+    progressText.parentElement.classList.remove("hidden");
+  }
+
   startScreen.classList.add("hidden");
   resultScreen.classList.add("hidden");
   questionScreen.classList.remove("hidden");
@@ -40,12 +48,15 @@ function startQuiz() {
   showQuestion();
 }
 
-startBtn.addEventListener("click", startQuiz);
-
 function showQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
 
   progressText.innerText = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+  if (progressBar) {
+    const progressPercentage =
+      ((currentQuestionIndex + 1) / questions.length) * 100;
+    progressBar.style.width = `${progressPercentage}%`;
+  }
   questionText.innerText = currentQuestion.question;
   optionContainer.innerHTML = "";
 
@@ -88,8 +99,12 @@ function handleNextQuestion() {
 
 function showScore() {
   questionScreen.classList.add("hidden");
+
+  progressText.classList.add("hidden");
+  progressText.parentElement.classList.add("hidden");
+
   resultScreen.classList.remove("hidden");
-  finalScore.innerText = `Your score: ${score} out of ${questions.length}`;
+  finalScore.innerText = `Your scored: ${score} out of ${questions.length}!`;
 }
 
 startBtn.addEventListener("click", startQuiz);

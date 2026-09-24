@@ -8,6 +8,9 @@
   </head>
   <body>
     <div class="quiz-container">
+      <div class="progress-bar-container hidden" id="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
       <div class="quiz-header">
         <h1>Quiz Pulse</h1>
         <div id="progress-text" class="hidden">Question 1 of 5</div>
@@ -22,19 +25,19 @@
       <div id="question-screen" class="screen hidden">
         <h2 id="question-text">Question Text goes here....</h2>
         <div id="option-container" class="option-grid">
-            <!-- Dynamic choice will be rendered by JS -->
+          <!-- Dynamic choice will be rendered by JS -->
         </div>
-          <button id="next-btn" class="btn primary-btn hidden">
-              Next Question
-            </button>
+        <button id="next-btn" class="btn primary-btn hidden">
+          Next Question
+        </button>
+      </div>
+      <!-- Result Screen -->
+      <div id="result-screen" class="screen hidden">
+        <h2>Quiz Completed!</h2>
+        <p id="final-score">You Score 0 out of 5</p>
+        <button id="restart-btn" class="btn primary-btn">Try Again</button>
+      </div>
     </div>
-    </div>
-    <!-- Result Screen -->
-    <div id="result-screen" class="screen hidden">
-      <h2>Quiz Completed!</h2>
-      <p id="final-score">You Score 0 out of 5</p>
-      <button id="restart-btn" class="btn primary-btn">Try Again</button>
-
     <script src="app.js"></script>
   </body>
 </html>
