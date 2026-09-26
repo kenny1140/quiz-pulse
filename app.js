@@ -1,6 +1,8 @@
 let currentQuestionIndex = 0;
 let score = 0;
 
+const HIGH_SCORE_KEY = "quiz_pulse_high_score";
+
 const startScreen = document.getElementById("start-screen");
 const questionScreen = document.getElementById("question-screen");
 const resultScreen = document.getElementById("result-screen");
@@ -13,6 +15,28 @@ const progressText = document.getElementById("progress-text");
 const progressBar = document.getElementById("progress-bar");
 const progressContainer = document.getElementById("progress-container");
 const finalScore = document.getElementById("final-score");
+const highScoreStart = document.getElementById("high-score-display");
+
+// LocalStorage functions
+function getHighScore() {
+  return parseInt(localStorage.getItem(HIGH_SCORE_KEY)) || 0;
+}
+
+function updateHighScoreDisplay() {
+  const highScore = getHighScore();
+  if (highScoreStart) {
+    highScoreStart.innerText = `High Score: ${highScore} / ${questions.length}`;
+  }
+}
+
+function saveHighSore(currentScore) {
+  const highScore = getHighScore();
+  if (currentScore > highScore) {
+    localStorage.setItem(HIGH_SCORE_KEY, currentScore);
+    return true; // New high score achieved
+  }
+  return false;
+}
 
 const questions = [
   {
@@ -29,6 +53,51 @@ const questions = [
     question: "What is the chemical symbol for gold?",
     options: ["Go", "Gd", "Au", "Ag"],
     answer: 2,
+  },
+  {
+    question: "Who wrote 'Romeo and Juliet'?",
+    options: [
+      "William Shakespeare",
+      "Charles Dickens",
+      "Jane Austen",
+      "Mark Twain",
+    ],
+    answer: 0,
+  },
+  {
+    question: "What is the largest ocean on Earth?",
+    options: [
+      "Atlantic Ocean",
+      "Indian Ocean",
+      "Arctic Ocean",
+      "Pacific Ocean",
+    ],
+    answer: 3,
+  },
+  {
+    question: "What is the smallest prime number?",
+    options: ["0", "1", "2", "3"],
+    answer: 2,
+  },
+  {
+    question: "What is the currency of Japan?",
+    options: ["Yen", "Dollar", "Euro", "Pound"],
+    answer: 0,
+  },
+  {
+    question: "What is the tallest mountain in the universe?",
+    options: ["Mount Everest", "K2", "Mount Kilimanjaro", "Mount Fuji"],
+    answer: 0,
+  },
+  {
+    question: "What is the largest desert in the world?",
+    options: [
+      "Sahara Desert",
+      "Gobi Desert",
+      "Kalahari Desert",
+      "Arabian Desert",
+    ],
+    answer: 0,
   },
 ];
 
@@ -83,8 +152,14 @@ function selectAnswer(selectedIndex) {
   const allButtons = optionContainer.querySelectorAll("button");
   allButtons.forEach((button, index) => {
     button.disabled = true;
-  });
 
+    if (index === currentQuestion.answer) {
+      button.classList.add("correct");
+    }
+    if (index === selectedIndex && selectedIndex !== currentQuestion.answer) {
+      button.classList.add("wrong");
+    }
+  });
   nextBtn.classList.remove("hidden");
 }
 
@@ -110,3 +185,5 @@ function showScore() {
 startBtn.addEventListener("click", startQuiz);
 nextBtn.addEventListener("click", handleNextQuestion);
 restartBtn.addEventListener("click", startQuiz);
+
+updateHighScoreDisplay();
